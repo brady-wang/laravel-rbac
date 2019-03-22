@@ -32,41 +32,41 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>主页</span></a></li>
+            <li><a href="/"><i class="fa fa-link"></i> <span>主页</span></a></li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i> <span>用户管理</span>
+                <a href=""><i class="fa fa-link"></i> <span>用户管理</span>
                     <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">用户列表</a></li>
-                    <li><a href="#">用户新增</a></li>
+                    <li><a href="{{ url('admin/users') }}">用户列表</a></li>
+                    <li><a href="{{ url('admin/user/add') }}">用户新增</a></li>
                 </ul>
             </li>
 
 
-            <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i> <span>角色管理</span>
+            <li class="treeview menu-open">
+                <a href="javascript:void(0);"><i class="fa fa-link"></i> <span>角色管理</span>
                     <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">角色列表</a></li>
-                    <li><a href="#">角色新增</a></li>
+                    <li ><a href="{{ url('admin/roles') }}">角色列表</a></li>
+                    <li><a href="{{ url('admin/role/add') }}">角色新增</a></li>
                 </ul>
             </li>
 
             <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i> <span>权限管理</span>
+                <a href="javascript:void(0);"><i class="fa fa-link"></i> <span>权限管理</span>
                     <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">权限列表</a></li>
-                    <li><a href="#">权限新增</a></li>
+                    <li><a href="{{ url('admin/accesses') }}">权限列表</a></li>
+                    <li><a href="{{ url('admin/access/add') }}">权限新增</a></li>
                 </ul>
             </li>
 

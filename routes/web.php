@@ -27,8 +27,9 @@ Route::namespace('Admin')->prefix("admin")->group(function (){
 	//角色管理
 	Route::any("/roles","RoleController@index");
 	Route::any("/role/add{id?0}","RoleController@addRole");
-	Route::any("/role/del/{id}","RoleController@deleteRole");
+	Route::any("/role/del","RoleController@deleteRole");
 	Route::any("/role/access","RoleController@setRoleAccess");
+	Route::any("/role/doAdd","RoleController@doAddRole");
 
 	//权限管理
 	Route::any("/accesses","AccessController@index");
