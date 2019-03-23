@@ -11,42 +11,11 @@
  Target Server Version : 50556
  File Encoding         : 65001
 
- Date: 21/03/2019 23:20:20
+ Date: 23/03/2019 17:13:24
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for access
--- ----------------------------
-DROP TABLE IF EXISTS `access`;
-CREATE TABLE `access` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '权限名称',
-  `urls` varchar(1000) NOT NULL DEFAULT '' COMMENT 'json 数组',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1：有效 0：无效',
-  `updated_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后一次更新时间',
-  `created_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '插入时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限详情表';
-
--- ----------------------------
--- Table structure for app_access_log
--- ----------------------------
-DROP TABLE IF EXISTS `app_access_log`;
-CREATE TABLE `app_access_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` bigint(20) NOT NULL DEFAULT '0' COMMENT '品牌UID',
-  `target_url` varchar(255) NOT NULL DEFAULT '' COMMENT '访问的url',
-  `query_params` longtext NOT NULL COMMENT 'get和post参数',
-  `ua` varchar(255) NOT NULL DEFAULT '' COMMENT '访问ua',
-  `ip` varchar(32) NOT NULL DEFAULT '' COMMENT '访问ip',
-  `note` varchar(1000) NOT NULL DEFAULT '' COMMENT 'json格式备注字段',
-  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `idx_uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户操作记录表';
 
 -- ----------------------------
 -- Table structure for role
@@ -58,8 +27,19 @@ CREATE TABLE `role` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1：有效 0：无效',
   `updated_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后一次更新时间',
   `created_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '插入时间',
+  `urls` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='角色表';
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+BEGIN;
+INSERT INTO `role` VALUES (3, '二级代理', 1, '2019-03-23 09:13:05', '0000-00-00 00:00:00', '[\"\\/admin\",\"\\/admin\\/user\\/del\",\"\\/admin\\/role\\/add\",\"\\/admin\\/role\\/del\"]');
+INSERT INTO `role` VALUES (9, '超级管理员', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '[\"\\/admin\",\"\\/admin\\/user\\/add\",\"\\/admin\\/user\\/del\",\"\\/admin\\/role\\/add\",\"\\/admin\\/role\\/del\",\"\\/admin\\/roles\"]');
+INSERT INTO `role` VALUES (10, '普通管理', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
+INSERT INTO `role` VALUES (11, '一级代理', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '[\"\\/admin\",\"\\/admin\\/user\\/add\"]');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for role_access
@@ -88,13 +68,16 @@ CREATE TABLE `user` (
   `created_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '插入时间',
   PRIMARY KEY (`id`),
   KEY `idx_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES (1, '超级管理员', 'apanly@163.com', 1, 1, '2016-11-15 13:36:30', '2016-11-15 13:36:30');
+INSERT INTO `user` VALUES (1, '管理员', 'tedddddst@163.com', 1, 1, '2016-11-15 13:36:30', '2016-11-15 13:36:30');
+INSERT INTO `user` VALUES (7, 'brady', 'brady.wang@qq.com', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `user` VALUES (8, 'test', 'tset@qq.com', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `user` VALUES (9, 'test', 'teee@qq.com', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 COMMIT;
 
 -- ----------------------------
@@ -108,6 +91,16 @@ CREATE TABLE `user_role` (
   `created_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '插入时间',
   PRIMARY KEY (`id`),
   KEY `idx_uid` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
+BEGIN;
+INSERT INTO `user_role` VALUES (2, 1, 9, '0000-00-00 00:00:00');
+INSERT INTO `user_role` VALUES (3, 7, 10, '0000-00-00 00:00:00');
+INSERT INTO `user_role` VALUES (4, 8, 10, '0000-00-00 00:00:00');
+INSERT INTO `user_role` VALUES (5, 9, 11, '0000-00-00 00:00:00');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

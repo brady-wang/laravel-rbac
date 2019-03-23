@@ -35,7 +35,5 @@ Route::namespace('Admin')->prefix("admin")->group(function (){
 
 	//权限管理
 	Route::any("/accesses","AccessController@index");
-	Route::any("/access/add/{id?0}","AccessController@addAccess");
-	Route::any("/access/del/{id}","AccessController@deleteAccess");
 
 });

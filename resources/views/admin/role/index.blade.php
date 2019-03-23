@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><a href="{{url('/admin/role/add')}}">新增</a></h3>
+                        <h3 class="box-title"><a href="{{url('/admin/access/add')}}">新增</a></h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -31,15 +31,18 @@
                                 <th>状态</th>
                                 <th>操作</th>
                             </tr>
+
                             @foreach ($data as $v)
                                 <tr>
                                     <td>{{ $v->id  }}</td>
                                     <td>{{ $v->name }}</td>
                                     <td>
                                         @if(isset($number[$v->id]))
-                                        {{ $number[$v->id]->number }}</td>
-                                        @endif
-                                    {{ 0 }}
+                                            {{ $number[$v->id]->number }}</td>
+                                    @else
+                                        0
+                                    @endif
+
                                     <td>
                                         @if($v->status == 1)
                                             启用
@@ -52,10 +55,11 @@
                             @endforeach
 
 
-
                         </table>
                     </div>
                     <!-- /.box-body -->
+
+
                     <div class="box-footer clearfix">
                         <ul class="pagination pagination-sm no-margin pull-right">
                             <li><a href="#">&laquo;</a></li>

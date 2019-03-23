@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\Route;
 
 class RoleController extends Controller
 {
@@ -32,16 +33,19 @@ class RoleController extends Controller
 	}
 
 	//添加角色
-	public function addRole($id=0)
+	public function addRole(Request $request,$id=0)
 	{
 		$id = intval($id);
 		if(!empty($id)){
 			$role = DB::table('role')->where('id',$id)
 				->first();
+			$role->urls = json_decode($role->urls,true);
 		} else {
 			$role = [];
 		}
-		return view('admin.role.add',compact("role"));
+		$access = config('menu');
+
+		return view('admin.role.add',compact("role","access"));
 	}
 
 	public function doAddRole(Request $request)
@@ -50,6 +54,7 @@ class RoleController extends Controller
 		$id = isset($data['id']) ? $data['id'] : '';
 		$name = $data['name'];
 		$status = $data['status'];
+		$urls = $data['urls'];
 
 		try{
 
@@ -60,7 +65,7 @@ class RoleController extends Controller
 					throw new Exception("角色名称已经存在");
 				}
 
-				$id = DB::table("role")->insertGetId(['name'=>$name,'status'=>$status]);
+				$id = DB::table("role")->insertGetId(['name'=>$name,'status'=>$status,"urls"=>$urls]);
 				if($id <= 0 ){
 					throw new Exception("操作失败");
 				}
@@ -73,7 +78,7 @@ class RoleController extends Controller
 					throw new Exception("系统错误 数据不存在");
 				}
 
-				$id = DB::table("role")->where('id',$id)->update(['name'=>$name,'status'=>$status]);
+				$id = DB::table("role")->where('id',$id)->update(['name'=>$name,'status'=>$status,"urls"=>json_encode($urls),'updated_time'=>date("Y-m-d H:i:s")]);
 				if($id <= 0 ){
 					throw new Exception("操作失败");
 				}

@@ -33,7 +33,7 @@
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
             <li><a href="/"><i class="fa fa-link"></i> <span>主页</span></a></li>
-            <li class="treeview">
+            <li class="treeview menu-open active">
                 <a href=""><i class="fa fa-link"></i> <span>用户管理</span>
                     <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -46,7 +46,7 @@
             </li>
 
 
-            <li class="treeview menu-open">
+            <li class="treeview menu-open active">
                 <a href="javascript:void(0);"><i class="fa fa-link"></i> <span>角色管理</span>
                     <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -54,21 +54,24 @@
                 </a>
                 <ul class="treeview-menu">
                     <li ><a href="{{ url('admin/roles') }}">角色列表</a></li>
-                    <li><a href="{{ url('admin/role/add') }}">角色新增</a></li>
+                    <li class=""><a href="{{ url('admin/role/add') }}">角色新增</a></li>
                 </ul>
             </li>
 
-            <li class="treeview">
-                <a href="javascript:void(0);"><i class="fa fa-link"></i> <span>权限管理</span>
-                    <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ url('admin/accesses') }}">权限列表</a></li>
-                    <li><a href="{{ url('admin/access/add') }}">权限新增</a></li>
-                </ul>
-            </li>
+            {{--<li class="treeview">--}}
+                {{--<a href="javascript:void(0);"><i class="fa fa-link"></i> <span>权限管理</span>--}}
+                    {{--<span class="pull-right-container">--}}
+                {{--<i class="fa fa-angle-left pull-right"></i>--}}
+              {{--</span>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                    {{--<li><a href="{{ url('admin/accesses') }}">权限列表</a></li>--}}
+                    {{--<li><a href="{{ url('admin/access/add') }}">权限新增</a></li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
+
+            <li class=""><a href="{{ url('admin/accesses') }}"><i class="fa fa-link"></i> <span>权限列表</span></a></li>
+
 
         </ul>
         <!-- /.sidebar-menu -->
