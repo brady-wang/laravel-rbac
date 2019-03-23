@@ -26,14 +26,22 @@
                         <!-- form start -->
 
                             <div class="box-body">
+
+                                @if(!empty($role))
+                                    <div class="form-group">
+                                        <label for="name">ID</label>
+                                        <input type="text" class="form-control" value="{{ $role->id }}" id="id" placeholder="ID" disabled="disabled" maxlength="50">
+                                    </div>
+                                @endif
+
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">角色名称</label>
-                                    <input type="text" class="form-control" id="name" placeholder="请输入角色名称" maxlength="50">
+                                    <input type="text" class="form-control" value="@if(!empty($role)){{ $role->name }}@endif" id="name" placeholder="请输入角色名称" maxlength="50">
                                 </div>
 
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="status" checked="checked">状态
+                                        <input type="checkbox" id="status" checked="@if(!empty($role) && $role->status == 1){{ "checked" }}@endif">状态
                                     </label>
                                 </div>
                             </div>
@@ -59,6 +67,7 @@
         <script>
             $(function(){
                $("#add_role").click(function(){
+                   var id = $("#id").val();
                    var name = $.trim($("#name").val());
                    var status = $("#status").is(':checked');
                    status = status ? 1 : 0;
@@ -67,9 +76,10 @@
                        return ;
                    }
                    var data = {};
+                   data.id = id;
                    data.name = name;
                    data.status = status;
-
+                   console.log(data);
 
                    var url = "{{ url('/admin/role/doAdd') }}";
                    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
@@ -85,7 +95,7 @@
                                 var location_url = '{{ url("/admin/roles")}}';
                                 setTimeout("location.href='"+location_url+"';",2000);
                             } else {
-                                layser.msg(res.msg);
+                                layer.msg(res.msg);
                             }
                         }
                    })

@@ -27,6 +27,7 @@
                             <tr>
                                 <th>id</th>
                                 <th>角色名称</th>
+                                <th>用户数量</th>
                                 <th>状态</th>
                                 <th>操作</th>
                             </tr>
@@ -35,13 +36,18 @@
                                     <td>{{ $v->id  }}</td>
                                     <td>{{ $v->name }}</td>
                                     <td>
+                                        @if(isset($number[$v->id]))
+                                        {{ $number[$v->id]->number }}</td>
+                                        @endif
+                                    {{ 0 }}
+                                    <td>
                                         @if($v->status == 1)
                                             启用
                                         @else
                                             不可用
                                         @endif
                                     </td>
-                                    <td><a href="">编辑</a>||<a class="del" href = "javascript:void(0);" data-id = "{{ $v->id }}">删除</a></td>
+                                    <td><a href="{{ url('/admin/role/add',['id'=>$v->id]) }}">编辑</a>||<a class="del" href = "javascript:void(0);" data-id = "{{ $v->id }}">删除</a></td>
                                 </tr>
                             @endforeach
 
@@ -76,29 +82,34 @@
 @push("scripts")
 <script>
    $('.del').click(function(){
-       var del_id = $(this).attr('data-id');
-       console.log(del_id);
-       var data = {'id':del_id};
+        var obj = $(this);
+       layer.confirm("确认删除？",function(index){
+           var del_id = obj.attr('data-id');
+           console.log(del_id);
+           var data = {'id':del_id};
 
-       var url = "{{url('/admin/role/del')}}";
-       console.log(url);
-       $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-       $.ajax({
-           type:'post',
-           data:data,
-           url:url,
-           dataType:'json',
-           success:function(res){
-               if(res.success == true){
-                   console.log(res);
-                   layer.msg(res.msg);
-                   var location_url = '{{ url("/admin/roles")}}';
-                   setTimeout("location.href='"+location_url+"';",2000);
-               } else {
-                   layser.msg(res.msg);
+           layer.close(index);
+           var url = "{{url('/admin/role/del')}}";
+           console.log(url);
+           $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+           $.ajax({
+               type:'post',
+               data:data,
+               url:url,
+               dataType:'json',
+               success:function(res){
+                   if(res.success == true){
+                       console.log(res);
+                       layer.msg(res.msg);
+                       var location_url = '{{ url("/admin/roles")}}';
+                       setTimeout("location.href='"+location_url+"';",2000);
+                   } else {
+                       layer.msg(res.msg);
+                   }
                }
-           }
+           })
        })
+
    })
 
 </script>

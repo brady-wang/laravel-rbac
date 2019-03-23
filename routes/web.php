@@ -21,12 +21,14 @@ Route::namespace('Admin')->prefix("admin")->group(function (){
 
 	//用户管理
 	Route::any("/users","UserController@index");
-	Route::any("/user/add/{id?0}","UserController@addUser");
-	Route::any("/user/del/{id}","UserController@deleteUser");
+	Route::any("/user/add/{id?}","UserController@addUser");
+	Route::any("/user/del","UserController@deleteUser");
+	Route::any("/user/doAdd","UserController@doAddUser");
+
 
 	//角色管理
 	Route::any("/roles","RoleController@index");
-	Route::any("/role/add{id?0}","RoleController@addRole");
+	Route::any("/role/add/{id?}","RoleController@addRole");
 	Route::any("/role/del","RoleController@deleteRole");
 	Route::any("/role/access","RoleController@setRoleAccess");
 	Route::any("/role/doAdd","RoleController@doAddRole");
@@ -35,4 +37,5 @@ Route::namespace('Admin')->prefix("admin")->group(function (){
 	Route::any("/accesses","AccessController@index");
 	Route::any("/access/add/{id?0}","AccessController@addAccess");
 	Route::any("/access/del/{id}","AccessController@deleteAccess");
+
 });
