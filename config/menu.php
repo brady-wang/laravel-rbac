@@ -30,7 +30,7 @@ return [
 		'subMenu'=>[
 			[
 				'name'=>'角色新增',
-				'urls'=> '/admin/role/add',
+				'urls'=> '/admin/role/create',
 			],
 			[
 				'name'=>'角色删除',
@@ -45,7 +45,7 @@ return [
 //角色管理
 	'access'=>[
 		'name'=>'权限管理',
-		'urls'=> '/admin/roles',
+		'urls'=> '/admin/role',
 
 	],
 

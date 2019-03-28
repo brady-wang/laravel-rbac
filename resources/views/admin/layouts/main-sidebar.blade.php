@@ -53,8 +53,8 @@
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li ><a href="{{ url('admin/roles') }}">角色列表</a></li>
-                    <li class=""><a href="{{ url('admin/role/add') }}">角色新增</a></li>
+                    <li ><a href="{{ url('admin/role') }}">角色列表</a></li>
+                    <li class=""><a href="{{ url('admin/role/create') }}">角色新增</a></li>
                 </ul>
             </li>
 

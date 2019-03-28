@@ -52,12 +52,12 @@
                                                 <td>{{ $v['name'] }}</td>
                                                 <td>
                                                     @if(isset($v['urls']))
-                                                        <label>{{ $v['name'] }}<input type="checkbox" name="urls" value="{{ $v['urls'] }}" @if(!is_null($role->urls) && in_array($v['urls'], $role->urls)) checked="checked" @endif /> </label>
+                                                        <label>{{ $v['name'] }}<input type="checkbox" name="urls" value="{{ $v['urls'] }}" @if(isset($role->urls) && !is_null($role->urls) && in_array($v['urls'], $role->urls)) checked="checked" @endif /> </label>
                                                     @endif
 
                                                     @if(isset($v['subMenu']) && !empty($v['subMenu']))
                                                         @foreach($v['subMenu'] as $vv)
-                                                            <label>{{ $vv['name'] }}<input type="checkbox" value="{{ $vv['urls'] }}" name="urls"   @if( !is_null($role->urls) && in_array($vv['urls'],$role->urls)) checked="checked" @endif /> </label>
+                                                            <label>{{ $vv['name'] }}<input type="checkbox" value="{{ $vv['urls'] }}" name="urls"   @if( isset($role->urls) &&  !is_null($role->urls) && in_array($vv['urls'],$role->urls)) checked="checked" @endif /> </label>
 
                                                         @endforeach
                                                     @endif
@@ -120,10 +120,10 @@
                    data.urls = urls;
                    console.log(urls);
 
-                   var url = "{{ url('/admin/role/doAdd') }}";
+                   var url = "{{ url('/admin/role') }}";
                    $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
                    $.ajax({
-                     type:'post',
+                     type:'POST',
                        data:data,
                        url:url,
                        dataType:'json',
