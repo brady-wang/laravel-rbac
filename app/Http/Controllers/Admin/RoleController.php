@@ -20,8 +20,7 @@ class RoleController extends Controller
 	//角色列表
 	public function index()
 	{
-		$data = DB::table('role')
-			->get();
+		$data = Role::get();
 
 		$rols = DB::table("user_role")->select(DB::raw("role_id,count(*) as number "))
 			->groupBy("role_id")
@@ -115,11 +114,15 @@ class RoleController extends Controller
 			if(!empty($res)){
 				throw new Exception("该角色下还有用户 不能删除！");
 			}
-			$affected_rows = DB::table('role')->where('id', $id)->delete();
+			//$affected_rows = DB::table('role')->where('id', $id)->delete();
 
-			if($affected_rows <= 0){
+			$model = new Role();
+			$role = $model->find($id);
+			$role->delete();
+			if(!$role->trashed()){
 				throw new Exception("删除失败");
 			}
+
 			return json_encode(['success'=>true,'msg'=>'操作成功']);
 		}catch (Exception $e){
 			return json_encode(['success'=>false,'msg'=>$e->getMessage()]);

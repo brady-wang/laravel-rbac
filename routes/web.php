@@ -18,7 +18,7 @@ Route::get("/",function(){
 Route::namespace('Admin')->prefix("admin")->group(function (){
 	//首页
 	Route::get("/","IndexController@index");
-	//Route::post("/role/stores","RoleController@store");
+	Route::post("/role/del","RoleController@deleteRole");
 	Route::Resource("role","RoleController");
 
 	//用户管理
